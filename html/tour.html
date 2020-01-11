@@ -5,72 +5,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tour</title>
+    <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.css">
     <script src="../js/jquery-3.4.1.min.js"></script>
     <script src="../bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <style>
+        *{
+          margin: 0;
+          padding: 0;
+        }
+        body{
+            background: #0af;
+            /* background: rgba(0, 100, 255, 0.8); */
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-    
-    <div class="navbar-wrapper" id="nav">
-        <div class="container">
-  
-            <nav class="navbar navbar-inverse navbar-static-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#">Project name</a>
-                        <!-- <a class="navbar" href="#">Project</a> -->
-                    </div>
-                    <div id="navbar" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <!-- class="active" -->
-                        <li ><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Nav header</li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">One more separated link</a></li>
+    <div id="app">
+        <div class="navbar-wrapper" id="nav">
+            <div class="">
+            <!-- container -->
+            <!-- navbar-inverse -->
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#">乐游</a>
+                            <!-- <a class="navbar" href="#">Project</a> -->
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <!-- class="active" -->
+                            <li ><a href="#">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Nav header</li>
+                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">One more separated link</a></li>
+                                </ul>
+                            </li>
                             </ul>
-                        </li>
-                        </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>  
+        </div>
+        <div id="myCarousel" class="carousel slide " data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" :data-slide-to="key" :class="key == 0 ? 'active' : '' " v-for='(item,key) in carImg' :key="key"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+              <div class="item" :class="key==0 ? 'active' : '' " v-for='(item,key) in carImg' :key="key">
+                <img :class="item.no + '-slide'" :src="item.src" style="height: 300px;width: 100%;" >
+                <!-- :alt="item.no1 slide" -->
+                <div class="container">
+                  <div class="carousel-caption">
+                    <h1><code>享受旅行</code></h1>
+                    <!-- <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p> -->
+                    <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+        </div><!-- /.carousel -->
+        
+        <!-- 搜索
+         =======================-->
+        <div class="container margin-top20">
+          <div class="">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button" @click="search()"><span class="glyphicon glyphicon-search"></span></button>
+              </span>
+              <input type="text" class="form-control" @keyup.enter="search()" placeholder="Search for...">
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 --> 
+        </div>
+    
+        <div class="container">
+
+            <div class="row text-center margin-top30" v-for="(item,key) of carImg" :key="key">
+              <!-- <span role="presentation" class="divider"></span> -->
+                <div class="col-md-5 margin-top10">
+                    <div class="row">
+                      <!-- col-md-offset-2 -->
+                        <div class="col-md-10 ">
+                            <img src="../img/tour4.jpg" class="img-thumbnail" alt="">
+                        </div>
                     </div>
                 </div>
-            </nav>
-  
+                <div class="col-md-7 margin-top10">
+                    <div class="text-left text-justify ">仙女山国家森林公园距武隆县城28公里，占地面积100平方公里，海拔1650—2033米，年平均气温低于11.2℃。茂密的森林、辽阔的草原、奇秀的山峰、凉爽宜人的气候、奇丽的冰雪景观，显示出其独特的旅游观赏价值。其林海、奇峰、草场、雪原被游客称为仙女山“四绝”。仙女山有森林面积33万亩，天然草坪数十万亩，是天然大氧吧。</div>
+                    <div class="text-left text-justify margin-top10">仙女山的夏天，蓝天白云，草绿如茵，鸟语花香，牛羊成群，一派生机。夏季山上气候凉爽温和，月均温在18-20℃，即使在最热的7、8月，最高温度也不超过30℃。夏季景色妩媚多姿、气候清凉舒爽，茫茫林海，清风吹佛，凉爽宜人。</div>
+                    <div class="text-left text-justify margin-top10">目前山上接待设施已初具规模，建有五星级和四星级饭店、别墅群、树上小木屋、风情木屋、欧式三角形木屋等住宿设施。开设有骑马、滑雪、滑草、赛车、彩弹射击、悠波球、滑翔伞、篝火、烧烤等20余个游乐项目，仙女山是休闲度假、避暑纳凉的绝佳胜地。</div>
+                </div>
+            </div>
         </div>
     </div>
-    <script>
-        var nav = document.querySelectorAll('.nav>li')
-        // var nav = navs();
-        console.log(nav)
-        nav.forEach( (item,key) => {
-            item.onclick = function(){
-                // console.log(key);
-                nav.forEach( (itema,keya) => {
-                    // console.log(keya, key, nav.length)
-                    if(keya < nav.length - 1){
-                        itema.className = ''
-                    }
-                    if(keya == key && key != 3){
-                        item.className = 'active';
-                    }
-                })
-            }
-        });
-        // console.log(nav)
-    </script>
+    <!-- <script src="js/tour-vue.js"></script> -->
     
+        <!-- <div id="nav-bottom"></div> -->
+    <!-- Carousel
+    ================================================== -->
+    <!-- container -->
+    
+    
+    <div style="height: 500px;clear: both;" class="a"></div>
+
+
+    <script>
+      // var nav = document.querySelectorAll('.nav>li')
+      // // var nav = navs();
+      // // console.log(nav)
+      // nav.forEach( (item,key) => {
+      //     item.onclick = function(){
+      //         // console.log(key);
+      //         nav.forEach( (itema,keya) => {
+      //             // console.log(keya, key, nav.length)
+      //             if(keya < nav.length - 1){
+      //                 itema.className = ''
+      //             }
+      //             if(keya == key && key != 3){
+      //                 item.className = 'active';
+      //             }
+      //         })
+      //     }
+      // });
+      
+  </script>
+  <script src="js/tour-vue.js"></script>
 </body>
 </html>
